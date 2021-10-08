@@ -1,0 +1,19 @@
+{
+    "name": "create-repo-automation",
+    "version": "1.0.0",
+    "description": "script create repo in carpet root",
+    "main": "index.js",
+    "repository": "git@github.com:backsoul/create-repo-automation-.git",
+    "author": "backsoul",
+    "type": "module",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon $1",
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "node-fetch": "^3.0.0",
+        "nodemon": "^2.0.13"
+    }
+}
