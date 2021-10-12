@@ -10,7 +10,7 @@ const excmd = (cmd) => {
     return execSync(cmd, { encoding: 'utf-8' })
 }
 
-const carpets = excmd('cd repositories && ls').replace(/\n/g, ',').slice(0, -1).split(",")
+const folders = excmd('cd repositories && ls').split("\n")
 
 const create_repo = (name_repo) => {
     const name = name_repo
@@ -28,17 +28,19 @@ const create_repo = (name_repo) => {
     })
 }
 
+const user = process.env.USER_GITHUB
+
 const create_repo_local = (name_repo) => {
-    const cmd = `cd repositories/${name_repo} && git init && git add . && git commit -m "initial commit" && git remote add origin git@github.com:backsoul/${name_repo} && git push origin master`
+    const cmd = `cd repositories/${name_repo} && git init && git add . && git commit -m "initial commit" && git remote add origin git@github.com:${user}/${name_repo} && git push origin master`
     excmd(cmd);
     return `carpeta inicializada: ${name_repo}`
 }
 
-for (const carpet of carpets) {
-    create_repo(carpet).then((data) => {
+for (const folder of folders) {
+    create_repo(folder).then((_) => {
         console.log('====================================');
-        console.log(`se creo correctamente el repositorio en github: (${carpet})`);
+        console.log(`se creo correctamente el repositorio en github: (${folder})`);
         console.log('====================================');
-        create_repo_local(carpet);
+        create_repo_local(folder);
     }).catch((err) => console.log("error al crear carpeta en github..", err));
 }
